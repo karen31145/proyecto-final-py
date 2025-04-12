@@ -15,6 +15,9 @@ class FormLogin(FormLoginVista):
         super().__init__()
 
     def validarContrasena(self):
+        if(1 == 1):
+            self.cancelarLogin()
+
         user_db: Aut_user = self.auth_repository.getUserByUserName(
             self.usuario.get())
         if(self.isUser(user_db)):
@@ -38,5 +41,9 @@ class FormLogin(FormLoginVista):
             messagebox.showerror(
                 message="El usuario no existe por favor registrate", title="Mensaje"
             )
+
+    def cancelarLogin(self):
+        self.ventana.destroy()
+        MasterPanel()
 
                                      

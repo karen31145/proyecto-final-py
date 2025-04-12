@@ -1,6 +1,8 @@
+# master_panel.py
 import tkinter as tk
 from tkinter.font import BOLD
 import util.generic as utl
+from forms.productos.vista_productos import FormProductosVista  # Importamos la vista
 
 class MasterPanel:
     def __init__(self):
@@ -11,23 +13,40 @@ class MasterPanel:
         self.ventana.config(bg='#fcfcfc')
         self.ventana.resizable(width=0, height=0)
 
-        # Dividir en dos frames: menú (izquierda) y contenido (derecha)
+        # Dividir en dos frames: menú y contenido
         self.frame_menu = tk.Frame(self.ventana, bg='#2c3e50', width=250, height=h)
         self.frame_menu.pack(side='left', fill='y')
 
         self.frame_contenido = tk.Frame(self.ventana, bg='#fcfcfc', width=w-250, height=h)
         self.frame_contenido.pack(side='right', fill='both', expand=True)
 
-        # Menú lateral con botones
-        opciones = ['Inicio', 'Perfil', 'Configuración', 'Salir']
-        for idx, texto in enumerate(opciones):
-            btn = tk.Button(self.frame_menu, text=texto, bg='#34495e', fg='white', font=('Arial', 12, BOLD), relief='flat', padx=10, pady=10)
+        # Imagen inicial (logo)
+        self.logo = utl.leer_imagen("./imagenes/logo-python.png", (300, 300))
+        self.label_logo = tk.Label(self.frame_contenido, image=self.logo, bg='#fcfcfc')
+        self.label_logo.image = self.logo
+        self.label_logo.place(relx=0.5, rely=0.5, anchor='center')
+
+        # Botones del menú
+        opciones = [
+            ('Inicio', self.mostrar_inicio),
+            ('Perfil', lambda: print("Perfil")),
+            ('Configuración', lambda: print("Configuración")),
+            ('Salir', self.ventana.quit)
+        ]
+
+        for texto, comando in opciones:
+            btn = tk.Button(self.frame_menu, text=texto, bg='#34495e', fg='white',
+                            font=('Arial', 12, BOLD), relief='flat', padx=10, pady=10,
+                            command=comando)
             btn.pack(fill='x', pady=2)
 
-        # Imagen en el área de contenido
-        logo = utl.leer_imagen("./imagenes/logo-python.png", (300, 300))
-        label = tk.Label(self.frame_contenido, image=logo, bg='#fcfcfc')
-        label.image = logo  # Referencia para evitar que se elimine el objeto de memoria
-        label.place(relx=0.5, rely=0.5, anchor='center')
-
         self.ventana.mainloop()
+
+    def mostrar_inicio(self):
+        # Eliminar contenido actual del frame_contenido
+        for widget in self.frame_contenido.winfo_children():
+            widget.destroy()
+
+        # Cargar vista de productos
+        vista_productos = FormProductosVista(self.frame_contenido)
+        vista_productos.pack(fill='both', expand=True)
