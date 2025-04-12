@@ -13,7 +13,7 @@ class FormLogin(FormLoginVista):
     def __init__(self):
         self.auth_repository = AuthUserRepository()
         super().__init__()
-
+    #inhabilitar la funcion de la validacion en base de dato
     def validarContrasena(self):
         if(1 == 1):
             self.cancelarLogin()
