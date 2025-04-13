@@ -110,7 +110,7 @@ class FormProductosVista(tk.Frame):
         self.precio_venta.pack(fill=tk.X, padx=20, pady=10)
         
         
-         # Frame 6: almacen
+         # Frame 7: almacen
        
         contenedor_almacen = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_almacen.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")  # sticky=nsew hace que se expanda
