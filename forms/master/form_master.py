@@ -35,7 +35,7 @@ class MasterPanel:
         # Botones del menú
         opciones = [
             ('Productos', self.mostrar_productos),
-            ('Proveedores', self.mostrar_proveedore),  
+            ('Proveedores', self.mostrar_proveedores),  
             ('almacenes', self.mostrar_almacenes),
             ('categorías', self.mostrar_categorias),
             ('movimiento de inventario', self.mostrar_movimiento_inventario),
