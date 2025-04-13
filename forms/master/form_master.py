@@ -38,7 +38,7 @@ class MasterPanel:
             ('Proveedores', self.mostrar_proveedore),  
             ('almacenes', self.mostrar_almacenes),
             ('categorías', self.mostrar_categorias),
-            ('movimiento_inventario', self.mostrar_movimiento_inventario),
+            ('movimiento de inventario', self.mostrar_movimiento_inventario),
             ('ventas', self.mostrar_ventas),
             ('Configuración', lambda: print("Configuración")),
             ('Salir', self.ventana.quit)
