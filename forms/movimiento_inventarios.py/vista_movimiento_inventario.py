@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.font import BOLD
 
-class FormProductosVista(tk.Frame):
+class FormMovimientoInventariosVista(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent, bg='#fcfcfc')
         
@@ -13,7 +13,6 @@ class FormProductosVista(tk.Frame):
         # Frame para tabla de productos (parte inferior)
         frame_tabla = tk.Frame(self, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         frame_tabla.pack(side="bottom", expand=tk.YES, fill=tk.BOTH)
-
 
 
         # Frame para divider la seccion de agregar productos en 3
@@ -45,7 +44,7 @@ class FormProductosVista(tk.Frame):
             
             
 
-        # Frame 1: Nombre producto
+        # Frame 1:
         contenedor_nombre = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_nombre.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")  # sticky=nsew hace que se expanda
         
@@ -179,5 +178,4 @@ class FormProductosVista(tk.Frame):
         
         self.tree.tag_configure('oddrow', background='#ffffc0')
         self.tree.tag_configure('evenrow', background='#eafbea')
-        
         
