@@ -8,20 +8,20 @@ class FormRegisterDesigner():
             pass
   
     def __init__(self):
-        self.ventana = tk.Tk()
+        self.ventana = tk.Toplevel()
         self.ventana.title('Inicio de sesión')
         self.ventana.config(bg='#fcfcfc')
         self.ventana.resizable(width=0,height=0)
-        utl.centrar_ventana(self.ventana,600,450)
+        utl.centrar_ventana(self.ventana,600,480)
         
-        logo = utl.leer_imagen("./imagenes/logo-python.png", (200, 200))
+        self.logo = utl.leer_imagen("./imagenes/logo-python.png", (200, 200))
 
         #Frame logo
         #configuracion del contenedor
-        frame_logo = tk.Frame(self.ventana,bd=0,width=300,relief=tk.SOLID,padx=10,pady=10,bg='#F87474')
+        frame_logo = tk.Frame(self.ventana,bd=0,width=200,relief=tk.SOLID,padx=10,pady=10,bg='green')
         frame_logo.pack(side="left",expand=tk.NO,fill=tk.BOTH)
         #ajusta la configuracion del label
-        label = tk.Label(frame_logo,image=logo,bg='#F87474')
+        label = tk.Label(frame_logo,image=self.logo,bg='green')
         label.place(x=0,y=0,relwidth=1,relheight=1)
 
         #Frame form
@@ -57,7 +57,7 @@ class FormRegisterDesigner():
         self.confirmacion.pack(fill=tk.X, padx=20, pady=10)
         self.confirmacion.config(show="*")
 
-        registro = tk.Button(frame_form_fill,text="Registrar",font=('Times',15, BOLD),bg="#F87474",bd=0,fg="#3a7ff6", command=self.Register)
+        registro = tk.Button(frame_form_fill,text="Registrar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="white", command=self.Register)
         registro.pack(fill=tk.X, padx=20,pady=20)     
         registro.bind("<Return>",(lambda event: self.Register()))
         #end frame_form_fill

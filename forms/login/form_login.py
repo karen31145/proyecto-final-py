@@ -7,6 +7,7 @@ from forms.login.vista_login import FormLoginVista
 from persistence.repositorio.auth_user_repository import AuthUserRepository
 from persistence.modelo import Aut_user
 import util.encoding_decoding as end_dec
+from forms.registration.form import FormRegister
 
 class FormLogin(FormLoginVista):
 
@@ -22,6 +23,9 @@ class FormLogin(FormLoginVista):
             self.usuario.get())
         if(self.isUser(user_db)):
             self.isPassword(self.password.get(), user_db)
+
+    def userRegister(self):
+        FormRegister().mainloop()
 
     
     def isUser(self,user : Aut_user):
