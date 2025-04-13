@@ -44,27 +44,27 @@ class FormMovimientoInventariosVista(tk.Frame):
             
             
 
-        # Frame 1:
-        contenedor_nombre = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
-        contenedor_nombre.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")  # sticky=nsew hace que se expanda
+        # Frame 1:id_producto
+        contenedor_id_producto = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
+        contenedor_id_producto.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")  # sticky=nsew hace que se expanda
         
-        etiqueta_nombre = tk.Label(contenedor_nombre, text="Nombre producto", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
-        etiqueta_nombre.pack(fill=tk.X, padx=20, pady=5)
+        etiqueta_id_producto = tk.Label(contenedor_id_producto, text="id producto", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_id_producto.pack(fill=tk.X, padx=20, pady=5)
         
-        self.nombre = ttk.Entry(contenedor_nombre, font=('Times', 14))
-        self.nombre.pack(fill=tk.X, padx=20, pady=10)
+        self.id_producto = ttk.Entry(contenedor_id_producto, font=('Times', 14))
+        self.id_producto.pack(fill=tk.X, padx=20, pady=10)
         
-        # Frame 2: Descripción
-        contenedor_descripcion = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
-        contenedor_descripcion.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
+        # Frame 2: tipo_movimiento
+        contenedor_tipo_movimiento = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
+        contenedor_tipo_movimiento.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
         
-        etiqueta_descripcion = tk.Label(contenedor_descripcion, text="Descripción", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
-        etiqueta_descripcion.pack(fill=tk.X, padx=20, pady=5)
+        etiqueta_tipo_movimiento = tk.Label(contenedor_tipo_movimiento, text="tipo movimiento", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_tipo_movimiento.pack(fill=tk.X, padx=20, pady=5)
         
-        self.descripcion = ttk.Entry(contenedor_descripcion, font=('Times', 14))
-        self.descripcion.pack(fill=tk.X, padx=20, pady=10)
+        self.tipo_movimiento = ttk.Entry(contenedor_tipo_movimiento, font=('Times', 14))
+        self.tipo_movimiento.pack(fill=tk.X, padx=20, pady=10)
         
-        # Frame 3: Categoría
+        # Frame 3: Cantidad
         contenedor_categoria = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_categoria.grid(row=0, column=2, padx=10, pady=10, sticky="nsew")
         
