@@ -4,8 +4,11 @@ from tkinter.font import BOLD
 import util.generic as utl
 from forms.productos.vista_productos import FormProductosVista 
 from forms.proveedores.vista_proveedores import FormProveedoresVista  # Importamos la vista
-from forms.movimiento_inventarios.vista_movimiento_inventario import  FormMovimientoInventariosVista  # Importamos la vista
- # Importamos la vista
+from forms.almacenes.vista_almacenes import FormAlmacenesVista  # Importamos la vista de almacenes
+from forms.categorias.vista_categorias import FormCategoriasVista  # Importamos la vista de categorías
+from forms.movimiento_inventario.vista_movimiento_inventario import FormMovimientoInventarioVista  # Importamos la vista de movimientos de inventarios
+from forms.ventas.vista_ventas import FormVentasVista  # Importamos la vista de ventas
+
 
 class MasterPanel:
     def __init__(self):
@@ -32,8 +35,11 @@ class MasterPanel:
         # Botones del menú
         opciones = [
             ('Productos', self.mostrar_productos),
-            ('Proveedores', self.mostrar_proveedores),
-            ('Movimientos de inventario', self.mostrar_movimientos),
+            ('Proveedores', self.mostrar_proveedore),  
+            ('almacenes', self.mostrar_almacenes),
+            ('categorías', self.mostrar_categorias),
+            ('movimiento_inventario', self.mostrar_movimiento_inventario),
+            ('ventas', self.mostrar_ventas),
             ('Configuración', lambda: print("Configuración")),
             ('Salir', self.ventana.quit)
         ]
@@ -63,12 +69,51 @@ class MasterPanel:
         # Cargar vista de proveedores
         vista_provedores = FormProveedoresVista(self.frame_contenido)
         vista_provedores.pack(fill='both', expand=True)
-
-    def mostrar_movimientos(self):
+        
+        
+    def mostrar_almacenes(self):
         # Eliminar contenido actual del frame_contenido
         for widget in self.frame_contenido.winfo_children():
             widget.destroy()
 
-        # Cargar vista de proveedores
-        vista_provedores = FormMovimientoInventariosVista(self.frame_contenido)
-        vista_provedores.pack(fill='both', expand=True)
+        # Cargar vista de almacenes
+        vista_almacenes = FormAlmacenesVista(self.frame_contenido)
+        vista_almacenes.pack(fill='both', expand=True)
+        
+
+    def mostrar_categorias(self):
+        # Eliminar contenido actual del frame_contenido
+        for widget in self.frame_contenido.winfo_children():
+            widget.destroy()
+
+        # Cargar vista de ctegorias
+        vista_categorias = FormCategoriasVista(self.frame_contenido)
+        vista_categorias.pack(fill='both', expand=True)
+        
+        
+    def mostrar_movimiento_inventario(self):
+        # Eliminar contenido actual del frame_contenido
+        for widget in self.frame_contenido.winfo_children():
+            widget.destroy()
+
+        # Cargar vista de movimiento_inventarios
+        vista_movimiento_inventario = FormMovimientoInventarioVista(self.frame_contenido)
+        vista_movimiento_inventario.pack(fill='both', expand=True)
+        
+        
+    def mostrar_ventas(self):
+        # Eliminar contenido actual del frame_contenido
+        for widget in self.frame_contenido.winfo_children():
+            widget.destroy()
+
+        # Cargar vista de ventas
+        vista_ventas = FormVentasVista(self.frame_contenido)
+        vista_ventas.pack(fill='both', expand=True)
+        
+        
+    
+        
+        
+    
+        
+    
