@@ -113,16 +113,18 @@ class FormVentasVista(tk.Frame):
         
         self.tree=ttk.Treeview(frame_agregar_inf_two,show="headings",yscrollcommand=tree_scroll.set)
         
-        self.tree['columns']=("id_producto","cantidad","fecha")
+        self.tree['columns']=("id_producto","cantidad","fecha","codigo_venta")
         self.tree.column("0")
         self.tree.column("id_producto")
         self.tree.column("cantidad")
         self.tree.column("fecha")
+        self.tree.column("codigo_venta")
 
         self.tree.heading(0,text="")
         self.tree.heading("id_producto",text="id producto")
         self.tree.heading("cantidad",text="cantidad")
         self.tree.heading("fecha",text="fecha")
+        self.tree.heading("codigo_venta",text="codigo de venta")
         
         self.tree.pack(expand=True,fill='both')
         
