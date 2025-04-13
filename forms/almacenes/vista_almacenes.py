@@ -35,13 +35,23 @@ class FormAlmacenesVista(tk.Frame):
             
             
             
+         # frame_agregar_inf_two
+        frame_agregar_inf_two = tk.Frame(frame_agregar,width=300,height=100, bd=0, relief=tk.SOLID,bg='#fcfcfc')
+        frame_agregar_inf_two.pack(expand=tk.YES,fill=tk.BOTH)
+        
+         # Configuramos las 3 columnas para que se repartan el ancho equitativamente
+        for i in range(4):
+            frame_agregar_inf_two.columnconfigure(i, weight=1)  # Esto reparte el ancho
+            
+            
+            
             
 
         # Frame 1: Nombre
         contenedor_nombre = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_nombre.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")  # sticky=nsew hace que se expanda
         
-        etiqueta_nombre = tk.Label(contenedor_nombre, text="Nombre producto", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_nombre = tk.Label(contenedor_nombre, text="Nombre", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_nombre.pack(fill=tk.X, padx=20, pady=5)
         
         self.nombre = ttk.Entry(contenedor_nombre, font=('Times', 14))
@@ -51,7 +61,7 @@ class FormAlmacenesVista(tk.Frame):
         contenedor_ubicacion = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_ubicacion.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
         
-        etiqueta_ubicacion = tk.Label(contenedor_ubicacion, text="ubicacion", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_ubicacion = tk.Label(contenedor_ubicacion, text="Ubicacion", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_ubicacion.pack(fill=tk.X, padx=20, pady=5)
         
         self.ubicacion= ttk.Entry(contenedor_ubicacion, font=('Times', 14))
@@ -86,23 +96,23 @@ class FormAlmacenesVista(tk.Frame):
         
         
         # Frame 5: tabla de almacenes
-        tree_scroll = ttk.Scrollbar(frame_agregar_inf)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        tree_scroll = ttk.Scrollbar(frame_agregar_inf_two, orient="vertical")
+        tree_scroll.grid(row=0, column=4, sticky='ns')
         
-        self.tree=ttk.Treeview(frame_agregar_inf,show="headings",yscrollcommand=tree_scroll.set)
+        self.tree=ttk.Treeview(frame_agregar_inf_two,show="headings",yscrollcommand=tree_scroll.set)
         
         self.tree['columns']=("Nombre","ubicacion")
         self.tree.column("0")
         self.tree.column("Nombre")
-        self.tree.column("Ubicacion")
+        self.tree.column("ubicacion")
 
         self.tree.heading(0,text="")
         self.tree.heading("Nombre",text="Nombre")
-        self.tree.heading("Ubicacion",text="Ubicacion")
+        self.tree.heading("ubicacion",text="Ubicacion")
         
-        self.tree.pack(expand=True,fill='both')
+        self.tree.grid(row=0,column=0,columnspan=4,sticky="nsew")
         
-        self.tree.tag_configure('oddrow', background='#ffffc0')
-        self.tree.tag_configure('evenrow', background='#eafbea')
+        frame_agregar_inf.grid_rowconfigure(1, weight=1)
+        frame_agregar_inf.grid_columnconfigure(0, weight=1)
         
         

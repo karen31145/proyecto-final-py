@@ -35,6 +35,18 @@ class FormVentasVista(tk.Frame):
             
             
             
+        # frame_agregar_inf_two
+        frame_agregar_inf_two = tk.Frame(frame_agregar,width=300,height=100, bd=0, relief=tk.SOLID,bg='#fcfcfc')
+        frame_agregar_inf_two.pack(expand=tk.YES,fill=tk.BOTH)
+        
+         # Configuramos las 3 columnas para que se repartan el ancho equitativamente
+        for i in range(4):
+            frame_agregar_inf_two.columnconfigure(i, weight=1)  # Esto reparte el ancho
+            
+            
+            
+            
+            
             
 
         # Frame 1: id_producto
@@ -96,19 +108,19 @@ class FormVentasVista(tk.Frame):
         
         
         # Frame 5: tabla de almacenes
-        tree_scroll = ttk.Scrollbar(frame_agregar_inf)
+        tree_scroll = ttk.Scrollbar(frame_agregar_inf_two)
         tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         
-        self.tree=ttk.Treeview(frame_agregar_inf,show="headings",yscrollcommand=tree_scroll.set)
+        self.tree=ttk.Treeview(frame_agregar_inf_two,show="headings",yscrollcommand=tree_scroll.set)
         
-        self.tree['columns']=("id producto","cantidad","fecha")
+        self.tree['columns']=("id_producto","cantidad","fecha")
         self.tree.column("0")
-        self.tree.column("id producto")
+        self.tree.column("id_producto")
         self.tree.column("cantidad")
         self.tree.column("fecha")
 
         self.tree.heading(0,text="")
-        self.tree.heading("id producto",text="id producto")
+        self.tree.heading("id_producto",text="id producto")
         self.tree.heading("cantidad",text="cantidad")
         self.tree.heading("fecha",text="fecha")
         

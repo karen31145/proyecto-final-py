@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.font import BOLD
 
-class FormProductosVista(tk.Frame):
+class FormCategoriasVista(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent, bg='#fcfcfc')
         
@@ -34,6 +34,16 @@ class FormProductosVista(tk.Frame):
             frame_agregar_inf.columnconfigure(i, weight=1)  # Esto reparte el ancho
             
             
+         # frame_agregar_inf_two
+        frame_agregar_inf_two = tk.Frame(frame_agregar,width=300,height=100, bd=0, relief=tk.SOLID,bg='#fcfcfc')
+        frame_agregar_inf_two.pack(expand=tk.YES,fill=tk.BOTH)
+        
+         # Configuramos las 3 columnas para que se repartan el ancho equitativamente
+        for i in range(4):
+            frame_agregar_inf_two.columnconfigure(i, weight=1)  # Esto reparte el ancho
+            
+            
+            
             
             
 
@@ -41,7 +51,7 @@ class FormProductosVista(tk.Frame):
         contenedor_nombre = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_nombre.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")  # sticky=nsew hace que se expanda
         
-        etiqueta_nombre = tk.Label(contenedor_nombre, text="Nombre producto", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_nombre = tk.Label(contenedor_nombre, text="Nombre", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_nombre.pack(fill=tk.X, padx=20, pady=5)
         
         self.nombre = ttk.Entry(contenedor_nombre, font=('Times', 14))
@@ -84,10 +94,10 @@ class FormProductosVista(tk.Frame):
         
         
         # Frame 5: tabla de categorias
-        tree_scroll = ttk.Scrollbar(frame_agregar_inf)
+        tree_scroll = ttk.Scrollbar(frame_agregar_inf_two)
         tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         
-        self.tree=ttk.Treeview(frame_agregar_inf,show="headings",yscrollcommand=tree_scroll.set)
+        self.tree=ttk.Treeview(frame_agregar_inf_two,show="headings",yscrollcommand=tree_scroll.set)
         
         self.tree['columns']=("Nombre","Descripcion")
         self.tree.column("0")
