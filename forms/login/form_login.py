@@ -16,9 +16,7 @@ class FormLogin(FormLoginVista):
         super().__init__()
     #inhabilitar la funcion de la validacion en base de dato
     def validarContrasena(self):
-        if(1 == 1):
-            self.cancelarLogin()
-
+    
         user_db: Aut_user = self.auth_repository.getUserByUserName(
             self.usuario.get())
         if(self.isUser(user_db)):
@@ -39,7 +37,7 @@ class FormLogin(FormLoginVista):
     
     def isPassword(self, password: str, user : Aut_user):
         b_password = user.password
-        if(password  ==  b_password):
+        if(password  == end_dec.decrypt(b_password)):
             self.ventana.destroy()
             MasterPanel()
             messagebox.showerror(
