@@ -160,12 +160,12 @@ class FormMovimientoInventariosVista(tk.Frame):
         self.tree.column("observaciones")
 
         self.tree.heading(0,text="")
-        self.tree.heading("id de producto",text="id de producto")
-        self.tree.heading("tipo de movimiento",text="tipo d moviminento")
-        self.tree.heading("cantidad",text="cantidad")
-        self.tree.heading("fecha de movimiento",text="fecha de movimiento")
-        self.tree.heading("id de almacen",text="id de almacen")
-        self.tree.heading("referencias",text="referencias")
+        self.tree.heading("id_producto",text="id de producto")
+        self.tree.heading("tipo_movimiento",text="tipo de moviminento")
+        self.tree.heading("Cantidad",text="cantidad")
+        self.tree.heading("fecha_movimiento",text="fecha de movimiento")
+        self.tree.heading("id_almacen",text="id de almacen")
+        self.tree.heading("referencia",text="referencias")
         self.tree.heading("observaciones",text="observaciones")
         
         self.tree.pack(expand=True,fill='both')
