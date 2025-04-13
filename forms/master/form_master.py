@@ -2,7 +2,9 @@
 import tkinter as tk
 from tkinter.font import BOLD
 import util.generic as utl
-from forms.productos.vista_productos import FormProductosVista  # Importamos la vista
+from forms.productos.vista_productos import FormProductosVista 
+from forms.proveedores.vista_proveedores import FormProveedoresVista  # Importamos la vista
+ # Importamos la vista
 
 class MasterPanel:
     def __init__(self):
@@ -28,8 +30,8 @@ class MasterPanel:
 
         # Botones del menú
         opciones = [
-            ('Inicio', self.mostrar_inicio),
-            ('Perfil', lambda: print("Perfil")),
+            ('Productos', self.mostrar_productos),
+            ('Proveedores', self.mostrar_proveedore),
             ('Configuración', lambda: print("Configuración")),
             ('Salir', self.ventana.quit)
         ]
@@ -42,7 +44,7 @@ class MasterPanel:
 
         self.ventana.mainloop()
 
-    def mostrar_inicio(self):
+    def mostrar_productos(self):
         # Eliminar contenido actual del frame_contenido
         for widget in self.frame_contenido.winfo_children():
             widget.destroy()
@@ -50,3 +52,12 @@ class MasterPanel:
         # Cargar vista de productos
         vista_productos = FormProductosVista(self.frame_contenido)
         vista_productos.pack(fill='both', expand=True)
+
+    def mostrar_proveedore(self):
+        # Eliminar contenido actual del frame_contenido
+        for widget in self.frame_contenido.winfo_children():
+            widget.destroy()
+
+        # Cargar vista de proveedores
+        vista_provedores = FormProveedoresVista(self.frame_contenido)
+        vista_provedores.pack(fill='both', expand=True)
