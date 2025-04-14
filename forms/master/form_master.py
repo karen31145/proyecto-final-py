@@ -4,7 +4,7 @@ from tkinter.font import BOLD
 import util.generic as utl
 from forms.productos.vista_productos import FormProductosVista 
 from forms.proveedores.vista_proveedores import FormProveedoresVista  # Importamos la vista
-from forms.almacenes.vista_almacenes import FormAlmacenesVista  # Importamos la vista de almacenes
+from forms.almacenes.form_almacenes import FormAlmacen
 from forms.categorias.vista_categorias import FormCategoriasVista  # Importamos la vista de categorías
 from forms.movimiento_inventario.vista_movimiento_inventario import FormMovimientoInventarioVista  # Importamos la vista de movimientos de inventarios
 from forms.ventas.vista_ventas import FormVentasVista  # Importamos la vista de ventas
@@ -77,8 +77,8 @@ class MasterPanel:
             widget.destroy()
 
         # Cargar vista de almacenes
-        vista_almacenes = FormAlmacenesVista(self.frame_contenido)
-        vista_almacenes.pack(fill='both', expand=True)
+        vista = FormAlmacen(self.frame_contenido)
+        vista.pack(fill='both', expand=True)
         
 
     def mostrar_categorias(self):

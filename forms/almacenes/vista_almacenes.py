@@ -5,6 +5,7 @@ from tkinter.font import BOLD
 class FormAlmacenesVista(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent, bg='#fcfcfc')
+
         
         # Frame para agregar productos (parte superior)
         frame_agregar = tk.Frame(self, bd=0, relief=tk.SOLID, bg='#fcfcfc', height=300)
@@ -67,8 +68,6 @@ class FormAlmacenesVista(tk.Frame):
         self.ubicacion= ttk.Entry(contenedor_ubicacion, font=('Times', 14))
         self.ubicacion.pack(fill=tk.X, padx=20, pady=10)
         
-        
-        
        
         #contenedores
         contenedor_boton_limpiar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
@@ -82,37 +81,65 @@ class FormAlmacenesVista(tk.Frame):
         contenedor_boton_guardar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_guardar.grid(row=0, column=2, padx=10, pady=10, sticky="nsew")
 
-        guardar = tk.Button(contenedor_boton_guardar,text="guardar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        guardar = tk.Button(contenedor_boton_guardar,text="guardar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff", command=self.Register)
         guardar.pack(fill=tk.X, padx=20,pady=20)
-        guardar.bind("<Return>",(lambda event: self.validarContrasena()))
-        
         contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_Eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
 
         guardar = tk.Button(contenedor_boton_Eliminar,text="Eliminar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
         guardar.pack(fill=tk.X, padx=20,pady=20)
-        guardar.bind("<Return>",(lambda event: self.validarContrasena()))
         
         
         
         # Frame 5: tabla de almacenes
+
+        style = ttk.Style()
+        style.theme_use("default")
+
+# Estilo de encabezados
+        style.configure("Treeview.Heading", 
+                        font=('Segoe UI', 12, 'bold'), 
+                        foreground="#ffffff", 
+                        background="#3a7ff6")
+
+# Estilo general de celdas
+        style.configure("Treeview", 
+                        font=('Segoe UI', 11),
+                        background="#f0f0f0",
+                        foreground="#333333",
+                        rowheight=30,
+                        fieldbackground="#f0f0f0")
+
+# Colores alternos en filas
+        style.map("Treeview", background=[('selected', '#3a7ff6')], foreground=[('selected', '#ffffff')])
+        style.layout("Treeview", [('Treeview.treearea', {'sticky': 'nswe'})])  # quita bordes feos
+
+
         tree_scroll = ttk.Scrollbar(frame_agregar_inf_two, orient="vertical")
         tree_scroll.grid(row=0, column=4, sticky='ns')
         
-        self.tree=ttk.Treeview(frame_agregar_inf_two,show="headings",yscrollcommand=tree_scroll.set)
         
-        self.tree['columns']=("Nombre","ubicacion")
-        self.tree.column("0")
-        self.tree.column("Nombre")
-        self.tree.column("ubicacion")
+        self.tree = ttk.Treeview(frame_agregar_inf_two, 
+                         show="headings",
+                         yscrollcommand=tree_scroll.set,
+                         style="Treeview")
 
-        self.tree.heading(0,text="")
-        self.tree.heading("Nombre",text="Nombre")
-        self.tree.heading("ubicacion",text="Ubicacion")
-        
-        self.tree.grid(row=0,column=0,columnspan=4,sticky="nsew")
+        tree_scroll.config(command=self.tree.yview)
+
+        self.tree['columns'] = ("Nombre", "ubicacion")
+
+        self.tree.column("Nombre", anchor=tk.W, width=200)
+        self.tree.column("ubicacion", anchor=tk.W, width=200)
+
+        self.tree.heading("Nombre", text="Nombre")
+        self.tree.heading("ubicacion", text="Ubicación")
+
+        self.tree.grid(row=0, column=0, columnspan=4, sticky="nsew")
         
         frame_agregar_inf.grid_rowconfigure(1, weight=1)
         frame_agregar_inf.grid_columnconfigure(0, weight=1)
-        
+
+    
+    def Register(self):
+        pass        
         
