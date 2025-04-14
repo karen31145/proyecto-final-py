@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter.font import BOLD
 import util.generic as utl
 from forms.productos.vista_productos import FormProductosVista 
-from forms.proveedores.vista_proveedores import FormProveedoresVista  # Importamos la vista
+from forms.proveedores.form_proveedores import FormProveedores  # Importamos la vista
 from forms.almacenes.form_almacenes import FormAlmacen
 from forms.categorias.vista_categorias import FormCategoriasVista  # Importamos la vista de categorías
 from forms.movimiento_inventario.vista_movimiento_inventario import FormMovimientoInventarioVista  # Importamos la vista de movimientos de inventarios
@@ -67,7 +67,7 @@ class MasterPanel:
             widget.destroy()
 
         # Cargar vista de proveedores
-        vista_provedores = FormProveedoresVista(self.frame_contenido)
+        vista_provedores = FormProveedores(self.frame_contenido)
         vista_provedores.pack(fill='both', expand=True)
         
         

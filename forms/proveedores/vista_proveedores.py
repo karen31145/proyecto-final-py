@@ -72,8 +72,8 @@ class FormProveedoresVista(tk.Frame):
         etiqueta_telefono = tk.Label(contenedor_telefono, text="telefono", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_telefono.pack(fill=tk.X, padx=20, pady=5)
         
-        self.categoria = ttk.Entry(contenedor_telefono, font=('Times', 14))
-        self.categoria.pack(fill=tk.X, padx=20, pady=10)
+        self.telefono = ttk.Entry(contenedor_telefono, font=('Times', 14))
+        self.telefono.pack(fill=tk.X, padx=20, pady=10)
          
         
         # Frame 4: email
@@ -99,7 +99,7 @@ class FormProveedoresVista(tk.Frame):
         
         
         #contenedor de botones
-        contenedor_boton_limpiar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
+        contenedor_boton_limpiar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_limpiar.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
         
         limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
@@ -107,14 +107,13 @@ class FormProveedoresVista(tk.Frame):
         
         
         # frame 6: botones
-        contenedor_boton_guardar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
+        contenedor_boton_guardar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_guardar.grid(row=0, column=2, padx=10, pady=10, sticky="nsew")
 
-        guardar = tk.Button(contenedor_boton_guardar,text="guardar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        guardar = tk.Button(contenedor_boton_guardar,text="guardar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.Register)
         guardar.pack(fill=tk.X, padx=20,pady=20)
-        guardar.bind("<Return>",(lambda event: self.validarContrasena()))
         
-        contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
+        contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_Eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
 
         guardar = tk.Button(contenedor_boton_Eliminar,text="Eliminar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
@@ -150,4 +149,6 @@ class FormProveedoresVista(tk.Frame):
         
         self.tree.tag_configure('oddrow', background='#ffffc0')
         self.tree.tag_configure('evenrow', background='#eafbea')
-        
+
+    def Register(self):
+        pass        
