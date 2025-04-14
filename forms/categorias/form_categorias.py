@@ -41,10 +41,10 @@ class FormCategorias(FormCategoriasVista):
         )
 
         # Buscar si el almacen ya existe
-        categorias_db: CategoriaModelo = self.almacenesRepositorio.getByName(self.nombre.get())
+        categorias_db: CategoriaModelo = self.CategoriasRepository.getByName(self.nombre.get())
 
-        if self.isCategoriaRegister(categorias_db):
-            self.CategoriasRepositorio.register(categorias.nombre, categorias.ubicacion)
+        if self.iscategoriaRegister(categorias_db):
+            self.CategoriasRepository.register(categorias.nombre, categorias.descripcion)
             messagebox.showinfo(
                 message="Se realizó el registro correctamente",
                 title="Mensaje"
