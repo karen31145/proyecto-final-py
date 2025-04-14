@@ -5,7 +5,7 @@ import util.generic as utl
 from forms.productos.vista_productos import FormProductosVista 
 from forms.proveedores.form_proveedores import FormProveedores  # Importamos la vista
 from forms.almacenes.form_almacenes import FormAlmacen
-from forms.categorias.vista_categorias import FormCategoriasVista  # Importamos la vista de categorías
+from forms.categorias.form_categorias import FormCategorias  # Importamos la vista de categorías
 from forms.movimiento_inventario.vista_movimiento_inventario import FormMovimientoInventarioVista  # Importamos la vista de movimientos de inventarios
 from forms.ventas.vista_ventas import FormVentasVista  # Importamos la vista de ventas
 
@@ -87,7 +87,7 @@ class MasterPanel:
             widget.destroy()
 
         # Cargar vista de ctegorias
-        vista_categorias = FormCategoriasVista(self.frame_contenido)
+        vista_categorias = FormCategorias(self.frame_contenido)
         vista_categorias.pack(fill='both', expand=True)
         
         
