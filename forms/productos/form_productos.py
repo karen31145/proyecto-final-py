@@ -1,62 +1,121 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter.font import BOLD
+from forms.productos.vista_productos import FormProductosVista
 import util.generic as utl
+from controladores.almacenes_controlador import almacenesRepository
+from controladores.controlador_categorias import CategoriasRepository
+from controladores.controlador_proveedores import ControladorProveedoresReposito
+from controladores.controlador_productos import ControladorProductoRepository
+from persistence.modelo_productos import ProductosModelo
+from datetime import date
 
-def ListaProductos():
-    def __init__(self):
-        self.ventana = tk.Tk()
-        self.ventana.title('lista de productos')
-        self.ventana.geometry('800x500')
-        self.ventana.config(bg='#fcfcfc')
-        self.ventana.resizable(width=0,height=0)
-        utl.centrar_ventana(self.ventana,800,500)
+class FormProductos(FormProductosVista):
+    def __init__(self, parent):
+        self.almacenesRepositorio = almacenesRepository()
+        self.CategoriasRepository = CategoriasRepository()
+        self.ControladorProductoRepository = ControladorProductoRepository()
+        self.ControladorProveedoresReposito = ControladorProveedoresReposito()
+
         
-
-        #Frame logo
-        #configuracion del contenedor
-        frame_logo = tk.Frame(self.ventana,bd=0,width=300,relief=tk.SOLID,padx=10,pady=10,bg='green')
-        frame_logo.pack(side="left",expand=tk.NO,fill=tk.BOTH)
-        #ajusta la configuracion del label
-        label = tk.Label(frame_logo,image=logo,bg='green')
-        label.place(x=0,y=0,relwidth=1,relheight=1)
-
-        #Frame form
-        frame_form = tk.Frame(self.ventana, bd=0, relief=tk.SOLID, bg='#fcfcfc')
-        frame_form.pack(side="right",expand=tk.YES, fill=tk.BOTH)
-        #end frame form
-
-        #frame_form_top
-        frame_form_top = tk.Frame(frame_form, height=50, bd=0, relief=tk.SOLID,bg='black')
-        frame_form_top.pack(side="top",fill=tk.X)
-        title = tk.Label(frame_form_top, text="Inicio de sesión", font=('Times',30), fg="#666a88",bg="#fcfcfc",pady=50)
-        title.pack(expand=tk.YES,fill=tk.BOTH)
-        #end frame_form_top
-
-        #frame_form_fill
-        frame_form_fill = tk.Frame(frame_form,height=50, bd=0, relief=tk.SOLID,bg='#fcfcfc')
-        frame_form_fill.pack(side="bottom",expand=tk.YES,fill=tk.BOTH)
+        super().__init__(parent)
+        self.cargaInicial()        
         
-        etiqueta_usuario = tk.Label(frame_form_fill,text="Usuario", font=('Times', 14), fg="#666a88",bg="#fcfcfc", anchor="w")
-        etiqueta_usuario.pack(fill=tk.X, padx=20,pady=5)
-        self.usuario = ttk.Entry(frame_form_fill,font=('Times',14))
-        self.usuario.pack(fill=tk.X, padx=20, pady=10)
+    def cargaInicial(self):
+        listaCategoria = self.CategoriasRepository.obtener_Categorias()
+        listaproveedor = self.ControladorProveedoresReposito.obtener_proveedores()
+        listAlmacenes =  self.almacenesRepositorio.obtener_Almacenes()
 
-        etiqueta_password = tk.Label(frame_form_fill,text="Contraseña", font=('Times', 14), fg="#666a88",bg="#fcfcfc", anchor="w")
-        etiqueta_password.pack(fill=tk.X, padx=20,pady=5)
-        self.password = ttk.Entry(frame_form_fill,font=('Times',14))
-        self.password.pack(fill=tk.X, padx=20, pady=10)
-        self.password.config(show="*")
+        #Creacion de diccionario listaCategorias
+        self.categorias_dict = {categoria.nombre: categoria.id_categoria for categoria in listaCategoria }
+        nombres_categoria =  ["Seleccione una opción"] + list(self.categorias_dict.keys())
+        self.categoria['values'] = nombres_categoria
+        self.categoria.current(0)
+        
+        #Creacion de diccionario listaProvedor
+        self.proveedor_dict = {proveedor.nombre: proveedor.id_proveedor for proveedor in listaproveedor }
+        nombres_proveedor =  ["Seleccione una opción"] + list(self.proveedor_dict.keys())
+        self.proveedor['values'] = nombres_proveedor
+        self.proveedor.current(0)
+        
+        #LLenado de lista almacenes
+        # Creamos un diccionario con nombre → id
+        self.almacenes_dict = {almacen.nombre: almacen.id_almacen for almacen in listAlmacenes}
+        # Insertamos el texto inicial
+        nombres_almacenes = ["Seleccione una opción"] + list(self.almacenes_dict.keys())
+        self.almacen['values'] = nombres_almacenes
+        self.almacen.current(0)  # Seleccionar el primero por defecto
 
-        inicio = tk.Button(frame_form_fill,text="Inicio sesion",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff", command=self.validarContrasena)
-        inicio.pack(fill=tk.X, padx=20,pady=20)
-        inicio.bind("<Return>",(lambda event: self.validarContrasena()))
+        self.codigoSku.insert(0,"Codigo SKU")
+        self.codigoSku.config(state= 'disabled')
+        
+        self.optenerTodos()
+        
+    def Register(self):
+        nombre= self.nombre.get()
+        descripcion = self.descripcion.get()
+        idcategoria = self.categorias_dict.get(self.categoria.get())
+        stock = self.cantStock.get()
+        stockMin = self.stockMin.get()
+        codigoSku = self.codigoSku.get()
+        idproveedor = self.proveedor_dict.get(self.proveedor.get())
+        precioCompra = self.precio_compra.get()
+        precioVenta = self.precio_venta.get()
+        idalmacen = self.almacenes_dict.get(self.almacen.get())
+        fechaCreacion = date.today()
+        idProd = None
+        
+        if not nombre or not idcategoria or not codigoSku or not idproveedor or not idalmacen:
+            messagebox.showerror(
+                "Error", "Completa los campos nombre, categoria, proveedor y almacen para poder continuar ")
+            return
 
-        registro = tk.Button(frame_form_fill,text="Registrar usuario",font=('Times',15, BOLD),bg="white",bd=0,fg="#3a7ff6", command=self.userRegister)
-        registro.pack(fill=tk.X, padx=20,pady=20)     
-        registro.bind("<Return>",(lambda event: self.userRegister()))
-        #end frame_form_fill
+        producto = ProductosModelo(
+            id_producto = idProd,
+            nombre = nombre,
+            descripcion = descripcion,
+            sku = codigoSku,
+            id_categoria = idcategoria,
+            id_proveedor = idproveedor,
+            precio_compra = precioCompra,
+            precio_venta = precioVenta,
+            stock_actual = stock,
+            stock_minimo = stockMin,
+            id_almacen = idalmacen,
+            fecha_creacion = fechaCreacion
+        )
+
+        self.ControladorProductoRepository.register(producto)
+        messagebox.showinfo(
+            message="Se realizó el registro correctamente",
+            title="Mensaje"
+        )
+        
+    def optenerTodos(self):
+        ListProductosAll = self.ControladorProductoRepository.obtener_productosAll()
+        self.cargar_tabla(ListProductosAll)
+        
+    def cargar_tabla(self, lista_productos):
+        # Limpiar primero el TreeView
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+
+        # Insertar datos
+        for productos in lista_productos:
+            self.tree.insert('', 'end', values=(
+                productos.nombre, 
+                productos.descripcion, 
+                productos.descripcion, 
+                productos.id_proveedor,
+                productos.precio_compra,
+                productos.precio_venta,
+                productos.stock_actual,
+                productos.stock_minimo,
+                productos.id_almacen,
+                productos.fecha_creacion
+                ))
+
+    
         
         
-        self.ventana.mainloop()
     

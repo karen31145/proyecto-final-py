@@ -83,6 +83,7 @@ class FormCategoriasVista(tk.Frame):
         guardar = tk.Button(contenedor_boton_guardar,text="guardar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.Register)
         guardar.pack(fill=tk.X, padx=20,pady=20)
         
+        #boton eliminar
         contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_Eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
 
