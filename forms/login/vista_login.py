@@ -18,14 +18,14 @@ class FormLoginVista:
         self.ventana.resizable(width=0,height=0)
         utl.centrar_ventana(self.ventana,800,500)
         
-        logo = utl.leer_imagen("./imagenes/logo-python.png", (200, 200))
+        logo = utl.leer_imagen("./imagenes/nuevoLogo.png", (200, 200))
 
         #Frame logo
         #configuracion del contenedor
-        frame_logo = tk.Frame(self.ventana,bd=0,width=300,relief=tk.SOLID,padx=10,pady=10,bg='green')
+        frame_logo = tk.Frame(self.ventana,bd=0,width=300,relief=tk.SOLID,padx=10,pady=10,bg='#d3d2cc')
         frame_logo.pack(side="left",expand=tk.NO,fill=tk.BOTH)
         #ajusta la configuracion del label
-        label = tk.Label(frame_logo,image=logo,bg='green')
+        label = tk.Label(frame_logo,image=logo,bg='#d3d2cc')
         label.place(x=0,y=0,relwidth=1,relheight=1)
 
         #Frame form

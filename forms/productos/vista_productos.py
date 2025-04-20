@@ -62,6 +62,7 @@ class FormProductosVista(tk.Frame):
         
         self.nombre = ttk.Entry(contenedor_nombre, font=('Times', 14))
         self.nombre.pack(fill=tk.X, padx=20, pady=10)
+        self.nombre.bind("<KeyRelease>",self.crear_codigo_SKU)
         
         # Frame 2: Descripción
         contenedor_descripcion = tk.Frame(frame_agregar_sup, bd=0, relief=tk.SOLID, bg='#fcfcfc')
@@ -170,7 +171,7 @@ class FormProductosVista(tk.Frame):
         contenedor_boton_limpiar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_limpiar.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
         
-        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.limpiar_campos)
         limpiar.pack(fill=tk.X, padx=20,pady=20)
         
         
@@ -187,44 +188,111 @@ class FormProductosVista(tk.Frame):
         contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_Eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
 
-        guardar = tk.Button(contenedor_boton_Eliminar,text="Eliminar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        guardar = tk.Button(contenedor_boton_Eliminar,text="Desabilitar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.Inhabilitar)
         guardar.pack(fill=tk.X, padx=20,pady=20)
         guardar.bind("<Return>",(lambda event: self.validarContrasena()))
         
         
+        style = ttk.Style()
+        style.theme_use("clam")  # Puedes probar también 'default', 'alt', 'vista', 'xpnative'
+        
+        # Personalización general del Treeview
+        style.configure("Treeview",
+            background="#f4f4f4",
+            foreground="#000000",
+            rowheight=28,
+            fieldbackground="#f4f4f4",
+            font=("Segoe UI", 10)
+        )
+        
+        # Encabezados bonitos
+        style.configure("Treeview.Heading",
+            background="#2e86de",
+            foreground="white",
+            font=("Segoe UI", 10, "bold")
+        )
+
+        
         
         # Frame 8: tabla productos
-        tree_scroll = ttk.Scrollbar(frame_tabla)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
-        
-        self.tree=ttk.Treeview(frame_tabla,show="headings",yscrollcommand=tree_scroll.set)
-        
-        self.tree['columns']=("Nombre","Descripcion","Categoria","Proveedor","Precio de compra","Precio de venta","Almacen")
-        self.tree.column("0")
-        self.tree.column("Nombre")
-        self.tree.column("Descripcion")
-        self.tree.column("Categoria")
-        self.tree.column("Proveedor")
-        self.tree.column("Precio de compra")
-        self.tree.column("Precio de venta")
-        self.tree.column("Almacen")
+        tree_scroll_y = ttk.Scrollbar(frame_tabla, orient=tk.VERTICAL)
+        tree_scroll_y.pack(side=tk.RIGHT, fill=tk.Y)
 
+        tree_scroll_x = ttk.Scrollbar(frame_tabla, orient=tk.HORIZONTAL)
+        tree_scroll_x.pack(side=tk.BOTTOM, fill=tk.X)
+        # Treeview con columnas
+        self.tree = ttk.Treeview(
+            frame_tabla,
+            show="headings",
+            yscrollcommand=tree_scroll_y.set,
+            xscrollcommand=tree_scroll_x.set
+        )
+    
+        self.tree['columns'] = (
+        "SKU", "Nombre", "Descripcion", "Precio de compra", "Precio de venta",
+        "Categoria", "Proveedor", "Stock actual", "Stock minimo", "Almacen","Habilitado", "editar"
+        )
+        
+# Ajuste y alineación de columnas
+        col_config = {
+            "SKU": 80,
+            "Nombre": 150,
+            "Descripcion": 200,
+            "Precio de compra": 120,
+            "Precio de venta": 120,
+            "Categoria": 100,
+            "Proveedor": 120,
+            "Stock actual": 100,
+            "Stock minimo": 100,
+            "Almacen": 100,
+            "Habilitado": 80,
+            "editar": 80
+        }
+        
+        for col, ancho in col_config.items():
+            self.tree.column(col, width=ancho, anchor="center")
+
+        for col in self.tree['columns']:
+            self.tree.heading(col, text=col)
+
+        self.tree.pack(expand=True, fill='both')
+
+        # Conectar los scrollbars
+        tree_scroll_y.config(command=self.tree.yview)
+        tree_scroll_x.config(command=self.tree.xview)
+        
         self.tree.heading(0,text="")
+        self.tree.heading("SKU",text="SKU")
         self.tree.heading("Nombre",text="Nombre")
         self.tree.heading("Descripcion",text="Descripcion")
-        self.tree.heading("Categoria",text="Categoria")
-        self.tree.heading("Proveedor",text="Proveedor")
         self.tree.heading("Precio de compra",text="Precio de compra")
         self.tree.heading("Precio de venta",text="Precio de venta")
+        self.tree.heading("Categoria",text="Categoria")
+        self.tree.heading("Proveedor",text="Proveedor")
+        self.tree.heading("Stock actual",text="Stock actual")
+        self.tree.heading("Stock minimo",text="Stock minimo")
         self.tree.heading("Almacen",text="Almacen")
+        self.tree.heading("Habilitado",text="Habilitado")
+        self.tree.heading("editar",text="Editar")
         
         self.tree.pack(expand=True,fill='both')
         
         self.tree.tag_configure('oddrow', background='#ffffc0')
         self.tree.tag_configure('evenrow', background='#eafbea')
+                # Colores alternos en las filas
+        self.tree.tag_configure('oddrow', background='#ffffff')
+        self.tree.tag_configure('evenrow', background='#dff9fb')
         
     def Register(self):
-        pass     
+        pass    
+    def limpiar_campos(self):
+        pass
+    def crear_codigo_SKU(self):
+        pass
+    def Inhabilitar(self):
+        pass
+    
+
 
 #Funcion para unicamente aceptar numeros 
 def crear_entry_numerico(parent, **kwargs):
@@ -233,3 +301,6 @@ def crear_entry_numerico(parent, **kwargs):
     vcmd = (parent.register(solo_numeros), "%P")
     entry = ttk.Entry(parent, validate="key", validatecommand=vcmd, **kwargs)
     return entry
+
+
+

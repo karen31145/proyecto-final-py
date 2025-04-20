@@ -15,5 +15,6 @@ class ProductosModelo(Base):
     precio_venta = Column(Float)
     stock_actual = Column(Float)
     stock_minimo = Column(Float)
-    id_almacen = Column(Float)
+    id_almacen = Column(Integer)
     fecha_creacion = Column(Date)
+    indicadorHabilitado = Column(Integer)  # 1 = habilitado, 0 = deshabilitado

@@ -15,7 +15,15 @@ class MasterPanel:
         self.ventana = tk.Tk()
         self.ventana.title('Master panel')
         w, h = self.ventana.winfo_screenwidth(), self.ventana.winfo_screenheight()
-        self.ventana.geometry(f"{w}x{h}+0+0")
+        
+        screen_w = self.ventana.winfo_screenwidth()
+        screen_h = self.ventana.winfo_screenheight()
+        w = int(screen_w * 0.98)
+        h = int(screen_h * 0.87)
+        
+        x = int((screen_w - w) / 2)
+        y = int((screen_h - h) / 2)
+        self.ventana.geometry(f"{w}x{h}+{x}+{y}")
         self.ventana.config(bg='#fcfcfc')
         self.ventana.resizable(width=0, height=0)
 
@@ -23,12 +31,12 @@ class MasterPanel:
         self.frame_menu = tk.Frame(self.ventana, bg='#2c3e50', width=250, height=h)
         self.frame_menu.pack(side='left', fill='y')
 
-        self.frame_contenido = tk.Frame(self.ventana, bg='#fcfcfc', width=w-250, height=h)
+        self.frame_contenido = tk.Frame(self.ventana, bg='#d3d2cc', width=w-250, height=h)
         self.frame_contenido.pack(side='right', fill='both', expand=True)
 
         # Imagen inicial (logo)
-        self.logo = utl.leer_imagen("./imagenes/logo-python.png", (300, 300))
-        self.label_logo = tk.Label(self.frame_contenido, image=self.logo, bg='#fcfcfc')
+        self.logo = utl.leer_imagen("./imagenes/nuevoLogo.png", (300, 300))
+        self.label_logo = tk.Label(self.frame_contenido, image=self.logo, bg='#d3d2cc')
         self.label_logo.image = self.logo
         self.label_logo.place(relx=0.5, rely=0.5, anchor='center')
 
