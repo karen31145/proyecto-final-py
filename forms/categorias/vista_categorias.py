@@ -72,7 +72,7 @@ class FormCategoriasVista(tk.Frame):
         contenedor_boton_limpiar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_limpiar.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
         
-        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.limpiar_campos)
         limpiar.pack(fill=tk.X, padx=20,pady=20)
         
         
@@ -87,7 +87,7 @@ class FormCategoriasVista(tk.Frame):
         contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_Eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
 
-        guardar = tk.Button(contenedor_boton_Eliminar,text="Eliminar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        guardar = tk.Button(contenedor_boton_Eliminar,text="Desabilitar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.inhabilitar)
         guardar.pack(fill=tk.X, padx=20,pady=20)
         guardar.bind("<Return>",(lambda event: self.validarContrasena()))
         

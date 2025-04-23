@@ -136,6 +136,7 @@ class FormProductos(FormProductosVista):
                 title="Mensaje"
             )   
             messagebox.showerror("Error", "Selecciona un producto para inhabilitar")
+            
     def optenerTodos(self):
         ListProductosAll = self.ControladorProductoRepository.obtener_productosAll()
         self.cargar_tabla(ListProductosAll)

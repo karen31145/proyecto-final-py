@@ -102,7 +102,7 @@ class FormProveedoresVista(tk.Frame):
         contenedor_boton_limpiar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_limpiar.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
         
-        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.limpiar_campos)
         limpiar.pack(fill=tk.X, padx=20,pady=20)
         
         
@@ -116,18 +116,48 @@ class FormProveedoresVista(tk.Frame):
         contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_Eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
 
-        guardar = tk.Button(contenedor_boton_Eliminar,text="Eliminar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        guardar = tk.Button(contenedor_boton_Eliminar,text="Desabilitar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.Inhabilitar)
         guardar.pack(fill=tk.X, padx=20,pady=20)
         guardar.bind("<Return>",(lambda event: self.validarContrasena()))
         
+        style = ttk.Style()
+        style.theme_use("clam")  # Puedes probar también 'default', 'alt', 'vista', 'xpnative'
+        
+        # Personalización general del Treeview
+        style.configure("Treeview",
+            background="#f4f4f4",
+            foreground="#000000",
+            rowheight=28,
+            fieldbackground="#f4f4f4",
+            font=("Segoe UI", 10)
+        )
+        
+        # Encabezados bonitos
+        style.configure("Treeview.Heading",
+            background="#2e86de",
+            foreground="white",
+            font=("Segoe UI", 10, "bold")
+        )
+
         
         
-        # Frame 7: tabla productos
-        tree_scroll = ttk.Scrollbar(frame_tabla)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         
-        self.tree=ttk.Treeview(frame_tabla,show="headings",yscrollcommand=tree_scroll.set)
         
+        # Frame 7: tabla proveedores
+        tree_scroll_y = ttk.Scrollbar(frame_tabla, orient=tk.VERTICAL)
+        tree_scroll_y.pack(side=tk.RIGHT, fill=tk.Y)
+
+        tree_scroll_x = ttk.Scrollbar(frame_tabla, orient=tk.HORIZONTAL)
+        tree_scroll_x.pack(side=tk.BOTTOM, fill=tk.X)
+        # Treeview con columnas
+        self.tree = ttk.Treeview(
+            frame_tabla,
+            show="headings",
+            yscrollcommand=tree_scroll_y.set,
+            xscrollcommand=tree_scroll_x.set
+        )
+        
+                
         self.tree['columns']=("Nombre","contacto","telefono","email","direccion")
         self.tree.column("0")
         self.tree.column("Nombre")
@@ -151,4 +181,11 @@ class FormProveedoresVista(tk.Frame):
         self.tree.tag_configure('evenrow', background='#eafbea')
 
     def Register(self):
-        pass        
+        pass    
+    def limpiar_campos(self):
+        pass
+    def crear_codigo_SKU(self):
+        pass
+    def Inhabilitar(self):
+        pass
+         

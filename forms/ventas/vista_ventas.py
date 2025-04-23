@@ -59,7 +59,7 @@ class FormVentasVista(tk.Frame):
         # Botón Limpiar
         contenedor_boton_limpiar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_limpiar.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
-        btn_limpiar = tk.Button(contenedor_boton_limpiar, text="Limpiar", font=('Times', 15, BOLD), bg="#3a7ff6", bd=0, fg="#fff")
+        btn_limpiar = tk.Button(contenedor_boton_limpiar, text="Limpiar", font=('Times', 15, BOLD), bg="#3a7ff6", bd=0, fg="#fff",command=self.limpiar_campos)
         btn_limpiar.pack(fill=tk.X, padx=20, pady=20)
 
         # Botón Guardar
@@ -72,7 +72,7 @@ class FormVentasVista(tk.Frame):
         # Botón Eliminar
         contenedor_boton_eliminar = tk.Frame(frame_agregar_inf, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
-        btn_eliminar = tk.Button(contenedor_boton_eliminar, text="Eliminar", font=('Times', 15, BOLD), bg="#3a7ff6", bd=0, fg="#fff")
+        btn_eliminar = tk.Button(contenedor_boton_eliminar, text="Desabilitar", font=('Times', 15, BOLD), bg="#3a7ff6", bd=0, fg="#fff",command=self.Inhabilitar)
         btn_eliminar.pack(fill=tk.X, padx=20, pady=20)
 
         # Tabla de ventas

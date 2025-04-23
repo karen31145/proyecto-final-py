@@ -71,3 +71,27 @@ class FormAlmacen(FormAlmacenesVista):
         # Insertar datos
         for almacen in lista_almacenes:
             self.tree.insert('', 'end', values=(almacen.nombre, almacen.ubicacion))
+            
+            
+    def Inhabilitar(self):
+        nombre = self.nombre.get()
+        if nombre=="nombre":
+            messagebox.showerror("Error", "Selecciona un almacen para inhabilitar.")
+        else:
+             # Aquí llamas el método al cargar el formulario
+            self.almacenesRepositorio.Inhabilitar(nombre)
+            self.limpiarCampos()
+            self.optenerTodos
+            messagebox.showinfo(
+                message="Se realizó la inhabilitación correctamente",
+                title="Mensaje"
+            )
+            messagebox.showerror("Error", "Selecciona un producto para inhabilitar")
+            
+            
+            
+    def limpiar_campos(self):
+        print("ingresa a limpiar")
+        self.nombre.delete(0, tk.END)
+        self.ubicacion.delete(0, tk.END)
+        self.editando = False

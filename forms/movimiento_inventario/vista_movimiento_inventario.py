@@ -119,11 +119,11 @@ class FormMovimientoInventarioVista(tk.Frame):
         self.observaciones.pack(fill=tk.X, padx=20, pady=10)
         
         
-        
+        #contenedor limpiar
         contenedor_boton_limpiar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_limpiar.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
         
-        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        limpiar = tk.Button(contenedor_boton_limpiar,text="limpiar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.limpiar_campos)
         limpiar.pack(fill=tk.X, padx=20,pady=20)
         
         
@@ -131,23 +131,46 @@ class FormMovimientoInventarioVista(tk.Frame):
         contenedor_boton_guardar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_guardar.grid(row=0, column=2, padx=10, pady=10, sticky="nsew")
 
-        guardar = tk.Button(contenedor_boton_guardar,text="guardar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        guardar = tk.Button(contenedor_boton_guardar,text="guardar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.Register)
         guardar.pack(fill=tk.X, padx=20,pady=20)
         guardar.bind("<Return>",(lambda event: self.validarContrasena()))
         
         contenedor_boton_Eliminar = tk.Frame(frame_agregar_inf_two, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         contenedor_boton_Eliminar.grid(row=0, column=3, padx=10, pady=10, sticky="nsew")
 
-        guardar = tk.Button(contenedor_boton_Eliminar,text="Eliminar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff")
+        guardar = tk.Button(contenedor_boton_Eliminar,text="inhabilitar",font=('Times',15, BOLD),bg="#3a7ff6",bd=0,fg="#fff",command=self.Inhabilitar)
         guardar.pack(fill=tk.X, padx=20,pady=20)
         guardar.bind("<Return>",(lambda event: self.validarContrasena()))
         
+        style = ttk.Style()
+        style.theme_use("clam")  # Puedes probar también 'default', 'alt', 'vista', 'xpnative'
+        
+        # Personalización general del Treeview
+        style.configure("Treeview",
+            background="#f4f4f4",
+            foreground="#000000",
+            rowheight=28,
+            fieldbackground="#f4f4f4",
+            font=("Segoe UI", 10)
+        )
+        
+        # Encabezados bonitos
+        style.configure("Treeview.Heading",
+            background="#2e86de",
+            foreground="white",
+            font=("Segoe UI", 10, "bold")
+        )
+        
          
         # Frame 8: tabla movimineto de inventarios
-        tree_scroll = ttk.Scrollbar(frame_tabla)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        tree_scroll_y = ttk.Scrollbar(frame_tabla, orient=tk.VERTICAL)
+        tree_scroll_y.pack(side=tk.RIGHT, fill=tk.Y)
         
-        self.tree=ttk.Treeview(frame_tabla,show="headings",yscrollcommand=tree_scroll.set)
+        tree_scroll_x = ttk.Scrollbar(frame_tabla, orient=tk.HORIZONTAL)
+        tree_scroll_x.pack(side=tk.BOTTOM, fill=tk.X)
+        
+        self.tree=ttk.Treeview(frame_tabla, show="headings", yscrollcommand=tree_scroll_y.set,
+            xscrollcommand=tree_scroll_x.set)
         
         self.tree['columns']=("id_producto","tipo_movimiento","Cantidad","fecha_movimiento","id_almacen","referencia","observaciones")
         self.tree.column("0")
@@ -173,3 +196,14 @@ class FormMovimientoInventarioVista(tk.Frame):
         self.tree.tag_configure('oddrow', background='#ffffc0')
         self.tree.tag_configure('evenrow', background='#eafbea')
         
+        self.tree.tag_configure('oddrow', background='#ffffff')
+        self.tree.tag_configure('evenrow', background='#dff9fb')
+        
+    def Register(self):
+        pass    
+    def limpiar_campos(self):
+        pass
+    def crear_codigo_SKU(self):
+        pass
+    def Inhabilitar(self):
+        pass

@@ -64,3 +64,25 @@ class FormVentas(FormVentasVista):
                 ventas.fecha,
                 ventas.codigo_venta
             ))
+            
+    def Inhabilitar(self):
+        id_producto = self.id_producto.get()
+        if id_producto=="id producto":
+            messagebox.showerror("Error", "Ingrese el ID del producto a eliminar.")
+            return      
+        else:
+            
+            self.VentasRepository.inhabilitar(id_producto)
+            self.limpiar_campos()
+            self.obtenerTodos()
+            messagebox.showinfo(
+                message="Se realizó la inhabilitación correctamente",
+                title="Mensaje"
+            )
+            messagebox.showerror("Error", "Selecciona un producto para inhabilitar")
+    def limpiar_campos(self):
+        # Limpiar los campos del formulario
+        self.id_producto.delete(0, tk.END)
+        self.cantidad.delete(0, tk.END)
+        self.fecha.delete(0, tk.END)
+        self.codigo_venta.delete(0, tk.END)

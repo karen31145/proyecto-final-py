@@ -71,3 +71,26 @@ class FormCategorias(FormCategoriasVista):
         # Insertar datos
         for categorias in lista_categorias:
             self.tree.insert('', 'end', values=(categorias.nombre, categorias.descripcion))
+            
+        
+    def inhabilitar(self):
+        nombre = self.nombre.get()
+        if nombre=="nombre":
+            messagebox.showerror("Error", "Selecciona una categoria para inhabilitar.")
+            return
+    
+        else:
+            self.CategoriasRepository.inhabilitar(nombre)
+            self.limpiar_campos()
+            self.optenerTodos()
+            messagebox.showinfo(
+                message="Se realizó la inhabilitación correctamente",
+                title="Mensaje"
+            )
+            messagebox.showerror("Error", "Selecciona un producto para inhabilitar")
+    
+    
+    def limpiar_campos(self):
+        self.nombre.delete(0, tk.END)
+        self.descripcion.delete(0, tk.END)
+        self.nombre.focus()

@@ -4,7 +4,7 @@ from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
-class MovimientoInventariosModel(Base):
+class MovimientoInModel(Base):
     __tablename__ = "Movimiento_Inventarios"
     
     id_proveedor = Column(Integer, primary_key=True, autoincrement=True)
