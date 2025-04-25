@@ -8,6 +8,7 @@ from forms.almacenes.form_almacenes import FormAlmacen
 from forms.categorias.form_categorias import FormCategorias  # Importamos la vista de categorías
 from forms.movimiento_inventario.vista_movimiento_inventario import FormMovimientoInventarioVista  # Importamos la vista de movimientos de inventarios
 from forms.ventas.form_ventas import FormVentas  # Importamos la vista de ventas
+from forms.facturacion.facturacion_form import FacturacionForm
 
 
 class MasterPanel:
@@ -42,6 +43,7 @@ class MasterPanel:
 
         # Botones del menú
         opciones = [
+            ('Facturacion',self.mostrar_Facturacion),
             ('Productos', self.mostrar_productos),
             ('Proveedores', self.mostrar_proveedores),  
             ('almacenes', self.mostrar_almacenes),
@@ -59,6 +61,16 @@ class MasterPanel:
             btn.pack(fill='x', pady=2)
 
         self.ventana.mainloop()
+
+        
+    def mostrar_Facturacion(self):
+        # Eliminar contenido actual del frame_contenido
+        for widget in self.frame_contenido.winfo_children():
+            widget.destroy()
+
+        # Cargar vista de productos
+        vista_productos = FacturacionForm(self.frame_contenido)
+        vista_productos.pack(fill='both', expand=True)
 
     def mostrar_productos(self):
         # Eliminar contenido actual del frame_contenido

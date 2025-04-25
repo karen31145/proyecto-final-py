@@ -9,6 +9,7 @@ class FormProveedores(FormProveedoresVista):
     def __init__(self, parent):
         self.ControladorProveedoresReposito = ControladorProveedoresReposito()
         super().__init__(parent)
+        self.obtenerTodos()
 
 
     def Register(self):

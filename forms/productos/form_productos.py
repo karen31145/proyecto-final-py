@@ -26,7 +26,7 @@ class FormProductos(FormProductosVista):
             if region == "cell":
                 columna = self.tree.identify_column(event.x)
                 fila = self.tree.identify_row(event.y)
-                if columna == "#12":  # "editar" es la columna 11 (empieza desde 1)
+                if columna == "#12":  # "editar" es la columna 12 (empieza desde 1)
                     valores = self.tree.item(fila, "values")
                     sku = valores[0]  # SKU es la primera columna
                     self.ediar_producto(sku)  # Llama a la función de edición

@@ -83,13 +83,13 @@ class FormVentasVista(tk.Frame):
         self.tree.pack(expand=True, fill='both')
         tree_scroll.config(command=self.tree.yview)
 
-        self.tree['columns'] = ("id_producto", "cantidad", "fecha", "codigo_venta")
-        self.tree.column("id_producto", anchor="center")
+        self.tree['columns'] = ("nombre_producto", "cantidad", "fecha", "codigo_venta")
+        self.tree.column("nombre_producto", anchor="center")
         self.tree.column("cantidad", anchor="center")
         self.tree.column("fecha", anchor="center")
         self.tree.column("codigo_venta", anchor="center")
 
-        self.tree.heading("id_producto", text="ID Producto")
+        self.tree.heading("nombre_producto", text="Producto")
         self.tree.heading("cantidad", text="Cantidad")
         self.tree.heading("fecha", text="Fecha")
         self.tree.heading("codigo_venta", text="Código de Venta")

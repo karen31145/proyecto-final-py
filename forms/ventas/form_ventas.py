@@ -59,10 +59,10 @@ class FormVentas(FormVentasVista):
         # Insertar las ventas en la tabla
         for ventas in lista_ventas:
             self.tree.insert('', 'end', values=(
-                ventas.id_producto,
-                ventas.cantidad,
-                ventas.fecha,
-                ventas.codigo_venta
+                ventas["nombre_producto"],
+                ventas["cantidad"],
+                ventas["fecha"],
+                ventas["codigo_venta"]
             ))
             
     def Inhabilitar(self):

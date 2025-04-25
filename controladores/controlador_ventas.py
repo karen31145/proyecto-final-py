@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
+from persistence.modelo_productos import ProductosModelo
 
 class VentasRepository():
     def __init__(self):
@@ -17,6 +18,11 @@ class VentasRepository():
         nueva_venta = VentaModelo(id_producto=id_producto, cantidad=cantidad, fecha=fecha, codigo_venta=codigo_venta)
         with Session(self.engine) as session:
             session.add(nueva_venta)
+            session.commit()
+
+    def AddAll(self, lista_ventas: List[VentaModelo]):
+        with Session(self.engine) as session:
+            session.add_all(lista_ventas)  # Agrega todos los objetos a la vez
             session.commit()
 
     def modificar(self, cantidad, fecha, codigo_venta, id_venta):
@@ -35,10 +41,26 @@ class VentasRepository():
         except Exception as e:
             print(f"Error al actualizar la venta: {e}")
             return False
-
-    def obtener_Ventas(self) -> List[VentaModelo]:
-        with Session(self.engine) as session:
-            return session.query(VentaModelo).all()
+    def obtener_Ventas(self) -> List[dict]:
+       with Session(self.engine) as session:
+           resultados = session.query(
+               VentaModelo,
+               ProductosModelo.nombre.label("nombre_producto")
+           ).join(ProductosModelo, VentaModelo.id_producto == ProductosModelo.id_producto).all()
+    
+           # Convertir los resultados a una lista de diccionarios
+           ventas = []
+           for venta, nombre_producto in resultados:
+               ventas.append({
+                   "id_ventas": venta.id_ventas,
+                   "id_producto": venta.id_producto,
+                   "cantidad": venta.cantidad,
+                   "fecha": venta.fecha,
+                   "codigo_venta": venta.codigo_venta,
+                   "nombre_producto": nombre_producto
+               })
+    
+           return ventas
 
     def eliminar(self, id_venta):
         with Session(self.engine) as session:

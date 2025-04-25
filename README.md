@@ -2,7 +2,7 @@
 Desarrollo de proyecto final
 
 --Librerias necesarios 
- PIL
+ pip install Pillow
  pip install sqlalchemy
  pip install cryptography
  pip install pymysql

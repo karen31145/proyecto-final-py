@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, Integer, Date, Float
-from sqlalchemy.orm import declarative_base
+from persistence.base import Base
 
-Base = declarative_base()
 
 class ProductosModelo(Base):
     __tablename__ = "productos"
